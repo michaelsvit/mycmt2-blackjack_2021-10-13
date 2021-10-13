@@ -58,7 +58,7 @@ public class Hand {
         return hand.value() < value();
     }
 
-    String displayValue() {
+    public String displayValue() {
         return String.valueOf(value());
     }
 
