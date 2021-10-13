@@ -21,16 +21,20 @@ public class Game {
     public void initialDeal() {
         dealRoundOfCards();
         dealRoundOfCards();
+        if (playerHand.isBlackjack()) {
+            this.playerDone = true;
+        }
     }
 
     public void dealRoundOfCards() {
-        // why: players first because this is the rule
         playerHand.drawFrom(deck);
         dealerHand.drawFrom(deck);
     }
 
     public GameOutcome determineOutcome() {
-        if (playerHand.isBusted()) {
+        if (playerHand.isBlackjack()) {
+            return GameOutcome.BLACKJACK;
+        } else if (playerHand.isBusted()) {
             return GameOutcome.PLAYER_BUSTS;
         } else if (dealerHand.isBusted()) {
             return GameOutcome.DEALER_BUSTS;

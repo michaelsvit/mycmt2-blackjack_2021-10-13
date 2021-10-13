@@ -34,4 +34,32 @@ public class GameOutcomeTest {
         game.playerHits();
         assertThat(game.determineOutcome()).isEqualTo(GameOutcome.PLAYER_BUSTS);
     }
+
+    @Test
+    void playerWinsWithBlackjack() {
+        Deck deck = new StubDeck(
+                new Card(Suit.HEARTS, Rank.ACE), // player
+                new Card(Suit.CLUBS, Rank.TEN), // dealer
+                new Card(Suit.HEARTS, Rank.JACK), // player
+                new Card(Suit.SPADES, Rank.TEN), // dealer
+                new Card(Suit.HEARTS, Rank.FIVE) // player
+        );
+        Game game = new Game(deck);
+        game.initialDeal();
+        assertThat(game.determineOutcome()).isEqualTo(GameOutcome.BLACKJACK);
+    }
+
+    @Test
+    void playerIsDoneAfterWinWithBlackjack() {
+        Deck deck = new StubDeck(
+                new Card(Suit.HEARTS, Rank.ACE), // player
+                new Card(Suit.CLUBS, Rank.TEN), // dealer
+                new Card(Suit.HEARTS, Rank.JACK), // player
+                new Card(Suit.SPADES, Rank.TEN), // dealer
+                new Card(Suit.HEARTS, Rank.FIVE) // player
+        );
+        Game game = new Game(deck);
+        game.initialDeal();
+        assertThat(game.isPlayerDone()).isTrue();
+    }
 }

@@ -39,6 +39,27 @@ public class HandValueAceTest {
                 .isTrue();
     }
 
+    @Test
+    void handWithAceAndFaceCardIsBlackjack() {
+        Hand hand = createHand(Rank.ACE, Rank.JACK);
+
+        assertThat(hand.isBlackjack()).isTrue();
+    }
+
+    @Test
+    void handWithAceAndTenCardIsBlackjack() {
+        Hand hand = createHand(Rank.ACE, Rank.TEN);
+
+        assertThat(hand.isBlackjack()).isTrue();
+    }
+
+    @Test
+    void handWithAceAndLessThanTenCardIsNotBlackjack() {
+        Hand hand = createHand(Rank.ACE, Rank.FIVE);
+
+        assertThat(hand.isBlackjack()).isFalse();
+    }
+
     private Hand createHand(Rank... ranks) {
         List<Card> cards = new ArrayList<>();
         for (Rank rank : ranks) {
